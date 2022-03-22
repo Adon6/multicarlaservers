@@ -88,8 +88,8 @@ class carlaNetwork(object):
     def get_transforms(self, own_carla):
         transform_list = []
         carla_actors = own_carla.get_actors()
-        for carla_actor in carla_actors:
-            # carla_actor = own_carla.get_actor(carla_actor_id)
+        for carla_actor_id in carla_actors:
+            carla_actor = own_carla.get_actor(carla_actor_id)
             carla_actor_transform = carla_actor.get_transform()
             
             # generate zcm data strcture

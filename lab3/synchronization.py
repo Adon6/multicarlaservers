@@ -210,20 +210,20 @@ if __name__ == '__main__':
                            type=int,
                            help='TCP port to listen to (default: 2000)')
     argparser.add_argument('--master-host',
-                           metavar='H',
+                           metavar='M',
                            default='127.0.0.1',
                            help='IP of the carla host server (default: 127.0.0.1)')
     argparser.add_argument('--master-port',
-                           metavar='P',
+                           metavar='Q',
                            default=2000,
                            type=int,
                            help='TCP port to listen to (default: 2000)')
     argparser.add_argument('--slave-host',
-                           metavar='H',
+                           metavar='S',
                            default='127.0.0.1',
                            help='IP of the carla host server (default: 127.0.0.1)')
     argparser.add_argument('--slave-port',
-                           metavar='P',
+                           metavar='R',
                            default=2000,
                            type=int,
                            help='TCP port to listen to (default: 2000)')
