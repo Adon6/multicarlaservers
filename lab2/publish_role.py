@@ -46,9 +46,7 @@ if __name__ == "__main__":
                            type=int,
                            help='TCP port to listen to (default: 2000)')
     arguments = argparser.parse_args()
-    if arguments.debug:
-        logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
-    else:
-        logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
+
+    logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
 
     synchronization_loop(arguments)

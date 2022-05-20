@@ -18,20 +18,6 @@ import time
 from zerocm import ZCM
 import sys, os
 
-# ==================================================================================================
-# -- find zcm-structure module ---------------------------------------------------------------------
-# ==================================================================================================
-
-
-blddir= os.path.dirname(os.path.realpath(__file__))
-sys.path.insert(0, blddir+"/zcm")
-print(blddir)
-
-from location_t import location_t
-from rotation_t import rotation_t
-from transformation_t import transformation_t
-from transformation_group import transformation_group
-
 
 # ==================================================================================================
 # -- find carlaSimulation module ---------------------------------------------------------------------
@@ -72,8 +58,8 @@ class carlaNetwork(object):
         self.zcm_receiver.start()
 
 
-    def publish_transforms(self, transforms):
-        self.zcm_sender.publish("Transforms", transforms)
+    def publish_transforms(self, channel,transforms):
+        self.zcm_sender.publish(channel, transforms)
         logging.info("Sucessfully published transforms")
 
     def subscribe_transforms(self, handler):

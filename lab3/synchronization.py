@@ -30,7 +30,7 @@ import carla  # pylint: disable=import-error
 # ==================================================================================================
 
 from carlaSimulation import CarlaSimulation
-
+from configure import ConfigureModule
 
 class SimulationSynchronization(object):
 
@@ -122,11 +122,25 @@ class SimulationSynchronization(object):
         """
         Tick to simulation synchronization
         """
+        # 以下是新版本
+
+        ##  part 1 协同信息至内存
+        ### 获取各个carla的状况。
+        ### 对状况进行验证
+        ### 满足条件的状况同步信息至内存
+        ### -> 得到统一的新状态
+        ## part 2 将协同信息发送至各个世界并tick
+        ### 更改各个世界的状态
+        ### tick()
+
+
+        
         # ---------------
         # sync
         # ---------------
         
         # get all carla actors list 
+        
         self.carla.tick()
 
         carla_spawned_actors = self.carla.spawned_actors #- set(self.sumo2carla_ids.values())
@@ -171,12 +185,19 @@ class SimulationSynchronization(object):
 
 def synchronization_loop(args):
     """
-    Entry point for sumo-carla co-simulation.
+    Entry point for co-simulation.
     """
+
+    # 加载配置及相关模块
 
     carla_simulation = CarlaSimulation(args.carla_host, args.carla_port, args.step_length)
 
     synchronization = SimulationSynchronization(carla_simulation, args.sync_vehicle_color, args.sync_vehicle_lights)
+    
+    # 尝试链接各个carla
+
+    # 初始化
+
     try:
         while True:
             start = time.time()
