@@ -35,6 +35,7 @@ def main():
     spectator = world.get_spectator()
     while True:
         actors_list = world.get_actors().filter('vehicle.*')
+        time.sleep(1)
         print(actors_list)
         for actor in actors_list:
             transform = actor.get_transform()

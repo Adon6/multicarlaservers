@@ -17,6 +17,7 @@ import sys
 import random
 import threading
 import copy
+
 from constants import INVALID_ACTOR_ID
 
 try:
@@ -35,6 +36,7 @@ import carla  # pylint: disable=import-error
 
 from carlaSimulation import CarlaSimulation
 from configureModule import ConfigureModule
+from logModule import CustomFormatter
 from utils import Utils
 
 class SimulationSynchronization(object):
@@ -427,9 +429,16 @@ if __name__ == '__main__':
     argparser.add_argument('--debug', action='store_true', help='enable debug messages')
     arguments = argparser.parse_args()
 
+    # create logger with 'spam_application'
+    logger = logging.getLogger()
+    ch = logging.StreamHandler()
     if arguments.debug:
-        logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.DEBUG)
+        logger.setLevel(logging.DEBUG)
+        ch.setLevel(logging.DEBUG)
     else:
-        logging.basicConfig(format='%(levelname)s: %(message)s', level=logging.INFO)
+        logger.setLevel(logging.INFO)
+        ch.setLevel(logging.INFO)
+    ch.setFormatter(CustomFormatter())
+    logger.addHandler(ch)
 
     synchronization_loop()
