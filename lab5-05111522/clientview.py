@@ -9,7 +9,7 @@
 import glob
 import os
 import sys
-
+import time 
 try:
     sys.path.append(glob.glob('../carla/dist/carla-*%d.%d-%s.egg' % (
         sys.version_info.major,
@@ -43,7 +43,7 @@ def main():
             clock = 0
             while clock < 13:
                 clock += 1
-                timestamp = world.wait_for_tick().timestamp
+                time.sleep(3)
                 spectator.set_transform(get_transform(transform))
 
 
