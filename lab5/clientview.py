@@ -40,12 +40,8 @@ def main():
         for actor in actors_list:
             transform = actor.get_transform()
             print(actor.id)
-
-            clock = 0
-            while clock < 13:
-                clock += 1
-                time.sleep(3)
-                spectator.set_transform(get_transform(transform))
+            time.sleep(3)
+            spectator.set_transform(get_transform(transform))
 
 
 if __name__ == '__main__':

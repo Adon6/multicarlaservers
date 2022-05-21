@@ -240,20 +240,24 @@ class SimulationSynchronization(object):
                     
                     blueprint_onWorld = actor_onWorld.type_id
                     transform_onWorld = actor_onWorld.get_transform()
-                    logging.debug('spawning avatar: blueprint is :{}.'.format(blueprint_onWorld))
-                    logging.debug('spawning avatar: transform is :{}.'.format(transform_onWorld))
+                    logging.debug('角色id信息是 :{}.'.format(blueprint_onWorld))
+                    logging.debug('角色位置是 :{}.'.format(transform_onWorld.location))
+                    logging.debug('角色方向是 :{}.'.format(transform_onWorld.rotation))
                     blueprint = cl.blueprint_library.find(blueprint_onWorld)
+                    transform_onWorld.location.z += 1.2
+                    logging.debug('获得的蓝图是 :{}.'.format(blueprint))
+                    logging.debug('新位置是 :{}.'.format(transform_onWorld.location))
                     if not blueprint:
                         logging.warning("Blueprint of {} hasn't been found in server {}.".format(cl.id, carlalet.id))
                         logging.warning("A random actor generated as a subtitute.")
                         blueprint = self._get_recommend_blueprint(carlalet.id, actor_onWorld)
                     if blueprint.has_attribute('color') and self.sync_vehicle_color :
-                        color = actor_onWorld.get_attribute('color')
+                        color = actor_onWorld.attributes.get('color',None)
                         blueprint.set_attribute('color',color)
                     avatar_id_inWorld = carlalet.spawn_actor(blueprint,transform_onWorld)
                     if avatar_id_inWorld != INVALID_ACTOR_ID:
                         carlalet.avatars[cl.id].add((avatar_id_inWorld, actor_id_onWorld))
-                        logging.debug('new avatar spawned.')
+                        logging.debug('new avatar spawned. |B|')
                 # 删除角色 avatars[clid] - store[clid], delete the actor
                 for id_pair in avatar_destroying_ids:
                     id_inWorld, _ = id_pair
@@ -265,7 +269,7 @@ class SimulationSynchronization(object):
                     id_inWorld, id_onWorld = id_pair
                     actor_onWorld =actors_info[id_onWorld] 
                     transform_onWorld = actor_onWorld.get_transform()
-                    vehicle_light_onWorld =  actor_onWorld.get_actor_light_state() if self.sync_vehicle_lights else None
+                    vehicle_light_onWorld =  actor_onWorld.get_light_state() if self.sync_vehicle_lights else None
                     carlalet.synchronize_vehicle(id_inWorld,transform_onWorld,vehicle_light_onWorld) #NET
                     # carlalet.get_actor(id_inWorld).set_transform(transform_onWorld)
                     logging.debug('avatar {} is updated.'.format(id_pair))

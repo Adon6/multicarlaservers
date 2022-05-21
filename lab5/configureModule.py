@@ -43,7 +43,7 @@ class ConfigureModule(object):
                 self._servers_IP[server_id] = (host,port)
                 self._servers_id.add(server_id) 
                 server_id += 1
-                logging.info("Configure has been loaded, server: "+ host +":"+str(port) +" .")
+                logging.info("Configure has been loaded, server: "+ host +":"+str(port) +".")
             if 'actorcolor'in tempkeys and temp['actorcolor'] in (True,1,"True","true"):
                 self._actorcolor = True
             else:
